@@ -1,4 +1,4 @@
-import ExpenseItem from "./ExpenseItem";
+import ExpensesList from "./ExpensesList";
 import ExpenseFilter from "./ExpenseFilter"
 import Card from "../UI/Card";
 import './Expenses.css'
@@ -12,18 +12,26 @@ const Expenses = (props) => {
         setFilteredYear(selectedYear);
     };
 
+    const filteredExpenses = props.items.filter(expense => {
+        return expense.date.getFullYear().toString() === filteredYear;
+    });
+
+
     return (
         <Card className='container'>
             <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler}/>
 
             {/* THIS IS DYNAMIC RENDERING */}
-            {props.items.map((expense) => (
+            {/* {filteredExpenses.map((expense) => (
             <ExpenseItem 
+            key={expense.id}   //Always add key prop when mapping lists of items else it will display a key prop error in console
             title={expense.title}
             amount={expense.amount}
             date={expense.date}
             />
-            ))}
+            ))} */}
+
+            <ExpensesList items={filteredExpenses}/>
 
             {/* THIS IS HARD CODING */}
             {/* <ExpenseItem
